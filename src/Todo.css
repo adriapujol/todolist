@@ -1,0 +1,23 @@
+.todo-container {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(238, 235, 40);
+    box-shadow: 5px 5px 10px black;
+    width: 300px;
+    height: 300px;
+    padding: 10px;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+}
+
+.todo-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+}
