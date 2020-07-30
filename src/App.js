@@ -9,12 +9,16 @@ class App extends Component {
     this.state = {
       todos: [],
       inputTodo: "",
-      currentTodo: {
-        id: "",
-        open: "",
-        task: ""
-      }
     }
+  }
+
+
+  getFormatedDate = () => {
+    const d = new Date();
+    const curr_date = d.getDate();
+    const curr_month = d.getMonth();
+    const curr_year = d.getFullYear();
+    return `${curr_date}/${curr_month}/${curr_year}`
   }
 
   handleTodoInput = (e) => {
@@ -23,36 +27,26 @@ class App extends Component {
     })
   }
 
-  addTodoState = () => {
-    this.setState({
-      currentTodo: {
-        id: uuid(),
-        open: new Date(),
-        task: this.state.inputTodo
-      },
-      todos: [this.state.currentTodo, ...this.state.todos]
-    })
-
-  }
-
-  // addTodo = () => {
-  //   this.setState({
-  //     currentTodo: {
-  //       id: uuid(),
-  //       open: new Date(),
-  //       task: this.state.inputTodo
-  //     },
-  //     todos: [this.state.currentTodo, ...this.state.todos]
-  //   })
-
-  // }
-
   addTodo = () => {
-    this.setState({
-      todos: [this.state.currentTodo, ...this.state.todos]
-    })
-
+    if (this.state.inputTodo !== "") {
+      const newTodo = {
+        id: uuid(),
+        openDate: this.getFormatedDate(),
+        closedDate: "",
+        task: this.state.inputTodo
+      }
+      this.setState({
+        todos: [newTodo, ...this.state.todos],
+        inputTodo: ""
+      })
+    }
   }
+
+  handleDone = (e) => {
+    console.log(e.target.getAttribute('data-id'))
+  }
+
+
 
   render() {
     return (
@@ -61,12 +55,11 @@ class App extends Component {
         <h1>ToDos</h1>
         <div className="todo-input-box">
           <input type="text" placeholder="Write Todo here" name="todo" value={this.state.inputTodo} onChange={this.handleTodoInput}></input>
-          <button onClick={this.addTodoState} >Todo Into State</button>
           <button onClick={this.addTodo} >Add</button>
         </div>
       </header>
       <div className="todos">
-        hi
+        <TodoList todoList={this.state.todos} handleDone={this.handleDone} />
       </div>
     </div>
     )
