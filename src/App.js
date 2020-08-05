@@ -33,7 +33,8 @@ class App extends Component {
         id: uuid(),
         openDate: this.getFormatedDate(),
         closedDate: "",
-        task: this.state.inputTodo
+        task: this.state.inputTodo,
+        done: false
       }
       this.setState({
         todos: [newTodo, ...this.state.todos],
@@ -43,7 +44,26 @@ class App extends Component {
   }
 
   handleDone = (e) => {
-    console.log(e.target.getAttribute('data-id'))
+    const id = e.target.getAttribute('data-id');
+    console.log(id);
+    let closingDate;
+    let newTodoList = this.state.todos.map(todo => {
+      if (todo.id === id) {
+        closingDate = todo.done ? "" : this.getFormatedDate();
+
+        return {
+          ...todo,
+          closedDate: closingDate,
+          done: !todo.done
+        };
+      }
+      return todo;
+    });
+
+    this.setState({
+      todos: [...newTodoList]
+    })
+
   }
 
 

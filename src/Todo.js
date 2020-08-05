@@ -3,9 +3,10 @@ import './Todo.css';
 
 function Todo(props) {
     const handleDone = props.handleDone;
-    const { id, openDate, closedDate, task} = props.todo;
+    const { id, openDate, closedDate, task, done} = props.todo;
+    const todoContainerClasses = done ? "todo-container todo-done" : "todo-container";
     return (
-        <div className="todo-container">
+        <div className={todoContainerClasses}>
             <div className="controls">
                 <div className="date">
                     <div>Date opened: {openDate}</div>

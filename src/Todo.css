@@ -8,6 +8,11 @@
     padding: 10px;
 }
 
+.todo-done {
+    background-color:  rgb(192, 248, 129);
+    text-decoration: line-through;
+}
+
 .controls {
     display: flex;
     justify-content: space-between;
