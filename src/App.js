@@ -43,6 +43,14 @@ class App extends Component {
     }
   }
 
+  deleteTodo = (e) => {
+    const id = e.target.getAttribute('data-id');
+    let newTodoList = this.state.todos.filter(todo => todo.id !== id);
+    this.setState({
+      todos: [...newTodoList]
+    })
+  }
+
   handleDone = (e) => {
     const id = e.target.getAttribute('data-id');
     console.log(id);
@@ -79,7 +87,7 @@ class App extends Component {
         </div>
       </header>
       <div className="todos">
-        <TodoList todoList={this.state.todos} handleDone={this.handleDone} />
+        <TodoList todoList={this.state.todos} handleDone={this.handleDone} deleteTodo={this.deleteTodo} />
       </div>
     </div>
     )

@@ -10,9 +10,10 @@
 
 .todo-done {
     background-color:  rgb(192, 248, 129);
+}
+.todo-crossed {
     text-decoration: line-through;
 }
-
 .controls {
     display: flex;
     justify-content: space-between;
