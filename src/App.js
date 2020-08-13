@@ -1,7 +1,9 @@
-import React, { useState, Component } from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import uuid from 'react-uuid';
 import TodoList from './TodoList';
+
+const LOCAL_STORAGE_KEY = 'todoApp.todos2';
 
 class App extends Component {
   constructor(props) {
@@ -12,6 +14,14 @@ class App extends Component {
     }
   }
 
+  componentWillMount() {
+    const storedTodos =  JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
+    if (storedTodos) {
+      this.setState({
+        todos: [...storedTodos]
+      })
+    }
+  }
 
   getFormatedDate = () => {
     const d = new Date();
@@ -36,10 +46,14 @@ class App extends Component {
         task: this.state.inputTodo,
         done: false
       }
+      const updatedTodos = [newTodo, ...this.state.todos];
+    
       this.setState({
-        todos: [newTodo, ...this.state.todos],
+        todos: updatedTodos,
         inputTodo: ""
       })
+
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedTodos));
     }
   }
 
@@ -49,6 +63,8 @@ class App extends Component {
     this.setState({
       todos: [...newTodoList]
     })
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newTodoList));
+
   }
 
   handleDone = (e) => {
@@ -71,7 +87,7 @@ class App extends Component {
     this.setState({
       todos: [...newTodoList]
     })
-
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newTodoList));
   }
 
 
